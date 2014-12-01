@@ -1,5 +1,8 @@
 <section data-ng-controller="ArticlesController" data-ng-init="findOne()">
-	<div class="page-header">
+	<div class="page-header title">
+    	<div class="action">
+    		<a class="edit-icon"><i class="glyphicon glyphicon-edit"></i></a>
+		</div>
 		<h1 data-ng-bind="article.title"></h1>
 	</div>
 	<div class="pull-right" data-ng-show="authentication.user._id == article.user._id">
@@ -20,3 +23,10 @@
 	</small>
 	<p class="lead" data-ng-bind="article.content"></p>
 </section>
+
+<style type="text/css">
+.title {color:#999;border:1px solid #eee;border-radius:3px;}
+
+.title .action {display: none;float: right;padding-right: 15px;padding-top: 20px;background-color:#f7f7f7;}
+.title:hover .action {display: block;}
+</style>

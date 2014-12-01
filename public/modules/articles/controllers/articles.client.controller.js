@@ -35,6 +35,20 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 			}
 		};
 
+		$scope.turnEditMode = function (article) {
+			var currentEditMode = article.editMode;
+			article.editMode = !currentEditMode;
+			article.buttonText = !currentEditMode? 'Save': 'Edit';
+
+			if (!article.editMode) {
+				// save data when finish edit
+				article.$update(function () {
+					article.editMode = false;
+					article.buttonText = 'Edit';
+				});
+			}
+		};
+
 		$scope.update = function() {
 			var article = $scope.article;
 
@@ -47,12 +61,22 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 
 		$scope.find = function() {
 			$scope.articles = Articles.query();
+			$scope.articles.$promise.then(function (articles) {
+				for (var i = 0, j = articles.length; i < j; i++) {
+					articles[i].editMode = false;
+					articles[i].buttonText = 'Edit';
+				}
+			});
 		};
 
-		$scope.findOne = function() {
-			$scope.article = Articles.get({
-				articleId: $stateParams.articleId
-			});
+		$scope.findOne = function(article) {
+			if (!article) {
+				$scope.article = Articles.get({
+					articleId: $stateParams.articleId
+				});
+			} else {
+				$scope.article = article;
+			}
 		};
 	}
 ]);

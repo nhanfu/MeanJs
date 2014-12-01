@@ -54,3 +54,10 @@ exports.update = function(req, res) {
 exports.me = function(req, res) {
 	res.json(req.user || null);
 };
+
+/**
+ * updateProfile
+ */
+exports.updateProfile = function (req, res) {
+	res.render('templates/updateProfile');
+};

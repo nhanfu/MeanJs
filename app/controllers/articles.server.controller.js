@@ -8,6 +8,10 @@ var mongoose = require('mongoose'),
 	Article = mongoose.model('Article'),
 	_ = require('lodash');
 
+
+exports.createForm = function (req, res) {
+	res.render('createForm');
+};
 /**
  * Create a article
  */

@@ -9,8 +9,21 @@ var users = require('../../app/controllers/users.server.controller'),
 module.exports = function(app) {
 	// Article Routes
 	app.route('/articles')
-		.get(articles.list)
+		.get(function (req, res) {
+			articles.list(req, res);
+		})
 		.post(users.requiresLogin, articles.create);
+
+	app.route('/articles/create')
+		.post(function (req, res) {
+			articles.create(req, res);
+		});
+	
+	app.route('/articles/createForm')
+		.get(function (req, res) {
+			console.log('test');
+			articles.createForm(req, res);
+		});
 
 	app.route('/articles/:articleId')
 		.get(articles.read)
